@@ -6,6 +6,7 @@
 package interfaz;
 
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,11 +57,29 @@ public class Periodico extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         jLabel2.setText("Núm. Palabras");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
+
+        txtNP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNPKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNPKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNP, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 80, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         jLabel3.setText("Núm. Colores");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, -1, -1));
+
+        txtNC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNCKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNCKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNC, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 80, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
@@ -70,6 +89,9 @@ public class Periodico extends javax.swing.JFrame {
         txtC.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCKeyTyped(evt);
             }
         });
         jPanel1.add(txtC, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 80, -1));
@@ -106,20 +128,34 @@ public class Periodico extends javax.swing.JFrame {
 
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
 
-        String res;
-        double c, p, co, t;
-        
-        co = Double.parseDouble(txtNC.getText());
-        p = Double.parseDouble(txtNP.getText());
-        c = Double.parseDouble(txtC.getText());
-        
-        t = (co * 25000) + (p * 20000) + (c * 15000);
-        
-        res = String.valueOf(t);
-        
-        lblT.setText(res);
-        
-        
+        if (txtNC.getText().trim().isEmpty() && txtNP.getText().trim().isEmpty() && txtC.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Datos Anteriormente Pedidos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtNP.requestFocusInWindow();
+        } else if (txtNC.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Colores", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtNC.requestFocusInWindow();
+        } else if (txtNP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Palabras", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtNP.requestFocusInWindow();
+        } else if (txtC.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Centimetros", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtC.requestFocusInWindow();
+        } else {
+
+            String res;
+            double c, p, co, t;
+
+            co = Double.parseDouble(txtNC.getText());
+            p = Double.parseDouble(txtNP.getText());
+            c = Double.parseDouble(txtC.getText());
+
+            t = (co * 25000) + (p * 20000) + (c * 15000);
+
+            res = String.valueOf(t);
+
+            lblT.setText("$ " + res);
+
+        }
     }//GEN-LAST:event_cmdCalcularActionPerformed
 
     private void cmdRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestaurarActionPerformed
@@ -135,24 +171,137 @@ public class Periodico extends javax.swing.JFrame {
     private void txtCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCKeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            
-        String res;
-        double c, p, co, t;
-        
-        co = Double.parseDouble(txtNC.getText());
-        p = Double.parseDouble(txtNP.getText());
-        c = Double.parseDouble(txtC.getText());
-        
-        t = (co * 25000) + (p * 20000) + (c * 15000);
-        
-        res = String.valueOf(t);
-        
-        lblT.setText(res);
-        
+            if (txtNC.getText().trim().isEmpty() && txtNP.getText().trim().isEmpty() && txtC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Datos Anteriormente Pedidos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNP.requestFocusInWindow();
+            } else if (txtNC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Colores", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNC.requestFocusInWindow();
+            } else if (txtNP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Palabras", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNP.requestFocusInWindow();
+            } else if (txtC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Centimetros", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtC.requestFocusInWindow();
+            } else {
+
+                String res;
+                double c, p, co, t;
+
+                co = Double.parseDouble(txtNC.getText());
+                p = Double.parseDouble(txtNP.getText());
+                c = Double.parseDouble(txtC.getText());
+
+                t = (co * 25000) + (p * 20000) + (c * 15000);
+
+                res = String.valueOf(t);
+
+                lblT.setText("$ " + res);
+
+            }
+
         }
-        
-        
+
+
     }//GEN-LAST:event_txtCKeyPressed
+
+    private void txtNPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNPKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNPKeyTyped
+
+    private void txtNCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNCKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNCKeyTyped
+
+    private void txtCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCKeyTyped
+
+    private void txtNPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNPKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtNC.getText().trim().isEmpty() && txtNP.getText().trim().isEmpty() && txtC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Datos Anteriormente Pedidos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNP.requestFocusInWindow();
+            } else if (txtNC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Colores", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNC.requestFocusInWindow();
+            } else if (txtNP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Palabras", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNP.requestFocusInWindow();
+            } else if (txtC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Centimetros", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtC.requestFocusInWindow();
+            } else {
+
+                String res;
+                double c, p, co, t;
+
+                co = Double.parseDouble(txtNC.getText());
+                p = Double.parseDouble(txtNP.getText());
+                c = Double.parseDouble(txtC.getText());
+
+                t = (co * 25000) + (p * 20000) + (c * 15000);
+
+                res = String.valueOf(t);
+
+                lblT.setText("$ " + res);
+
+            }
+
+        }
+    }//GEN-LAST:event_txtNPKeyPressed
+
+    private void txtNCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNCKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtNC.getText().trim().isEmpty() && txtNP.getText().trim().isEmpty() && txtC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Datos Anteriormente Pedidos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNP.requestFocusInWindow();
+            } else if (txtNC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Colores", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNC.requestFocusInWindow();
+            } else if (txtNP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Numero De Palabras", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtNP.requestFocusInWindow();
+            } else if (txtC.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado Los Centimetros", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtC.requestFocusInWindow();
+            } else {
+
+                String res;
+                double c, p, co, t;
+
+                co = Double.parseDouble(txtNC.getText());
+                p = Double.parseDouble(txtNP.getText());
+                c = Double.parseDouble(txtC.getText());
+
+                t = (co * 25000) + (p * 20000) + (c * 15000);
+
+                res = String.valueOf(t);
+
+                lblT.setText("$ " + res);
+
+            }
+
+        }
+    }//GEN-LAST:event_txtNCKeyPressed
 
     /**
      * @param args the command line arguments
